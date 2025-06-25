@@ -1,10 +1,10 @@
-defmodule Lucideicons.Icon do
+defmodule LucideIcons.Icon do
   @moduledoc """
   This module defines the data structure and functions for working with icons stored as SVG files.
   """
 
   @doc """
-  Defines the Lucideicons.Icon struct
+  Defines the LucideIcons.Icon struct
 
   Its fields are:
 
@@ -18,23 +18,23 @@ defmodule Lucideicons.Icon do
   defstruct @fields
 
   @json (cond do
-           Code.ensure_loaded?(JSON) -> JSON
            Code.ensure_loaded?(Jason) -> Jason
+           Code.ensure_loaded?(JSON) -> JSON
            true -> raise "need a JSON library available, either JSON or Jason"
          end)
 
-  @lucide_static_version :code.priv_dir(:lucide_icons)
-                         |> List.to_string()
-                         |> Path.join("package-lock.json")
-                         |> Path.expand()
+  @lucide_static_version Mix.Project.deps_path()
+                         |> Path.join(
+                           "/lucide_icons_static_package/packages/lucide-static/package.json"
+                         )
                          |> File.read!()
                          |> @json.decode!()
-                         |> get_in(["packages", "node_modules/lucide-static", "version"])
+                         |> get_in(["version"])
 
-  @type t :: %Lucideicons.Icon{file: binary, name: String.t()}
+  @type t :: %LucideIcons.Icon{file: binary, name: String.t()}
 
   @doc "Parses a SVG file and returns structured data"
-  @spec parse!(Path.t()) :: Lucideicons.Icon.t()
+  @spec parse!(Path.t()) :: LucideIcons.Icon.t()
   def parse!(filename) do
     file = File.read!(filename)
 

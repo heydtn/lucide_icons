@@ -1,4 +1,4 @@
-defmodule Lucideicons do
+defmodule LucideIcons do
   @moduledoc """
   Phoenix components for Lucide icons.
 
@@ -9,15 +9,15 @@ defmodule Lucideicons do
 
   Each icon is available as a function component that can be used in your Phoenix templates:
 
-      <Lucideicons.home class="h-6 w-6" />
-      <Lucideicons.arrow_right class="h-4 w-4 text-blue-500" />
-      <Lucideicons.settings aria-hidden="true" />
+      <LucideIcons.home class="h-6 w-6" />
+      <LucideIcons.arrow_right class="h-4 w-4 text-blue-500" />
+      <LucideIcons.settings aria-hidden="true" />
 
   ## Available Icons
 
   You can get a list of all available icon names with `icon_names/0`:
 
-      iex> Lucideicons.icon_names()
+      iex> LucideIcons.icon_names()
       [:accessibility, :activity, :air_vent, ...]
 
   ## Attributes
@@ -30,15 +30,17 @@ defmodule Lucideicons do
   - `data-*` - Data attributes
   - Any other valid HTML attribute
 
-      <Lucideicons.user aria-label="User profile" data-testid="user-icon" />
+      <LucideIcons.user aria-label="User profile" data-testid="user-icon" />
 
   """
   use Phoenix.Component
 
-  alias Lucideicons.Icon
+  alias LucideIcons.Icon
 
-  priv_dir = :code.priv_dir(:lucide_icons) |> List.to_string()
-  icon_paths = Path.join(priv_dir, "node_modules/lucide-static/icons/*.svg") |> Path.wildcard()
+  icon_paths =
+    Mix.Project.deps_path()
+    |> Path.join("/lucide_icons_static_icons/icons/*.svg")
+    |> Path.wildcard()
 
   icons =
     for icon_path <- icon_paths do
@@ -62,12 +64,12 @@ defmodule Lucideicons do
 
   ## Examples
 
-      iex> Lucideicons.search_icons("arrow")
-      [:arrow_big_down, :arrow_big_left, :arrow_big_right, :arrow_big_up, 
-       :arrow_down, :arrow_down_left, :arrow_down_right, :arrow_left, 
+      iex> LucideIcons.search_icons("arrow")
+      [:arrow_big_down, :arrow_big_left, :arrow_big_right, :arrow_big_up,
+       :arrow_down, :arrow_down_left, :arrow_down_right, :arrow_left,
        :arrow_left_right, :arrow_right, :arrow_up, :arrow_up_down, ...]
 
-      iex> Lucideicons.search_icons("user")
+      iex> LucideIcons.search_icons("user")
       [:user, :user_check, :user_minus, :user_plus, :user_x, :users]
 
   """
@@ -85,6 +87,22 @@ defmodule Lucideicons do
     |> Enum.sort()
   end
 
+  @doc """
+  Dynamically renders an icon
+
+  ## Examples
+
+      <LucideIcons.dynamic icon={:plane} />
+      <LucideIcons.dynamic icon={:circle_check} class="h-6 w-6" />
+      <LucideIcons.dynamic icon={:shield_minus} class="h-4 w-4 text-blue-500" aria-hidden="true" />
+  """
+  def dynamic(assigns) do
+    icon = assigns.icon
+    assigns = Map.delete(assigns, :icon)
+
+    apply(LucideIcons, icon, [assigns])
+  end
+
   for %Icon{name: name, file: file} <- icons do
     icon_name_string = name |> to_string() |> String.replace("_", "-")
 
@@ -93,9 +111,9 @@ defmodule Lucideicons do
 
     ## Examples
 
-        <Lucideicons.#{name} />
-        <Lucideicons.#{name} class="h-6 w-6" />
-        <Lucideicons.#{name} class="h-4 w-4 text-blue-500" aria-hidden="true" />
+        <LucideIcons.#{name} />
+        <LucideIcons.#{name} class="h-6 w-6" />
+        <LucideIcons.#{name} class="h-4 w-4 text-blue-500" aria-hidden="true" />
 
     ## Attributes
 

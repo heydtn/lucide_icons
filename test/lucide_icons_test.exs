@@ -1,4 +1,4 @@
-defmodule LucideiconsTest do
+defmodule LucideIconsTest do
   use ExUnit.Case, async: true
 
   import Phoenix.Component
@@ -9,7 +9,7 @@ defmodule LucideiconsTest do
 
     html =
       rendered_to_string(~H"""
-      <Lucideicons.activity />
+      <LucideIcons.activity />
       """)
 
     assert html =~ "<svg"
@@ -20,7 +20,7 @@ defmodule LucideiconsTest do
 
     html =
       rendered_to_string(~H"""
-      <Lucideicons.activity class="h-4 w-4" />
+      <LucideIcons.activity class="h-4 w-4" />
       """)
 
     assert html =~ ~s(<svg class="h-4 w-4")
@@ -31,7 +31,7 @@ defmodule LucideiconsTest do
 
     html =
       rendered_to_string(~H"""
-      <Lucideicons.activity aria_hidden={false} />
+      <LucideIcons.activity aria_hidden={false} />
       """)
 
     assert html =~ ~s(<svg aria-hidden="false")

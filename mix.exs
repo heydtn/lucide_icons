@@ -1,4 +1,4 @@
-defmodule Lucideicons.MixProject do
+defmodule LucideIcons.MixProject do
   use Mix.Project
 
   @version "2.0.1"
@@ -8,7 +8,7 @@ defmodule Lucideicons.MixProject do
     [
       app: :lucide_icons,
       version: @version,
-      elixir: "~> 1.13",
+      elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       docs: docs(),
@@ -30,17 +30,30 @@ defmodule Lucideicons.MixProject do
       {:phoenix_live_view, "~> 1.0"},
       {:jason, "~> 1.4", optional: true},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:req, "~> 0.5", only: :dev, runtime: false}
+      {:req, "~> 0.5", only: :dev, runtime: false},
+      {:lucide_icons_static_icons,
+       github: "lucide-icons/lucide",
+       tag: "0.523.0",
+       sparse: "/icons/",
+       compile: false,
+       app: false,
+       depth: 1},
+      {:lucide_icons_static_package,
+       github: "lucide-icons/lucide",
+       tag: "0.523.0",
+       sparse: "/packages/lucide-static/package.json",
+       compile: false,
+       app: false}
     ]
   end
 
   defp docs do
     [
-      main: "Lucideicons",
+      main: "LucideIcons",
       source_ref: "v#{@version}",
       source_url: @github_url,
-      groups_for_modules: [LiveView: ~r/Lucideicons.LiveView/],
-      nest_modules_by_prefix: [Lucideicons.LiveView],
+      groups_for_modules: [LiveView: ~r/LucideIcons.LiveView/],
+      nest_modules_by_prefix: [LucideIcons.LiveView],
       extras: ["README.md"]
     ]
   end
@@ -59,7 +72,7 @@ defmodule Lucideicons.MixProject do
 
   defp package do
     %{
-      files: ~w(lib priv .formatter.exs mix.exs README.md LICENSE),
+      files: ~w(lib .formatter.exs mix.exs README.md LICENSE),
       licenses: ["BSD-3-Clause"],
       links: %{"GitHub" => @github_url}
     }

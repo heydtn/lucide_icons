@@ -26,13 +26,13 @@ The project depends on the `lucide-static` npm package which contains the SVG ic
 
 ### Icon Generation Flow
 1. **Build-time generation**: Icons are parsed and components are generated at compile time
-2. **SVG parsing**: `Lucideicons.Icon.parse!/1` reads SVG files from `priv/node_modules/lucide-static/icons/`
+2. **SVG parsing**: `LucideIcons.Icon.parse!/1` reads SVG files from `priv/node_modules/lucide-static/icons/`
 3. **Component creation**: For each icon, a Phoenix component function is dynamically created
 4. **Name transformation**: Icon filenames are converted from kebab-case to snake_case (e.g., `alert-triangle.svg` → `alert_triangle`)
 
 ### Key Modules
-- `Lucideicons`: Main module that defines all icon components using Phoenix.Component
-- `Lucideicons.Icon`: Handles SVG parsing, attribute handling, and icon data structure
+- `LucideIcons`: Main module that defines all icon components using Phoenix.Component
+- `LucideIcons.Icon`: Handles SVG parsing, attribute handling, and icon data structure
 
 ### Important Implementation Details
 - Uses `@external_resource` to track SVG files and trigger recompilation when icons change

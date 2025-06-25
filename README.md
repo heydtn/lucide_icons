@@ -1,4 +1,4 @@
-# Lucideicons
+# LucideIcons
 
 ![CI](https://github.com/zoedsoupe/lucide_icons/actions/workflows/ci.yml/badge.svg)
 
@@ -30,9 +30,9 @@ Then run `mix deps.get`.
 #### With Heex
 
 ```elixir dark
-<Lucideicons.alert_triangle class="h-4 w-4" aria-hidden/>
+<LucideIcons.alert_triangle class="h-4 w-4" aria-hidden/>
 ```
 
 where `alert_triangle` refers to a specific icon name.
 
-> Icon names can be retrieved from `Lucideicons.icon_names/0`
+> Icon names can be retrieved from `LucideIcons.icon_names/0`
